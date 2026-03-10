@@ -1,7 +1,7 @@
 .git
 .gitignore
-models/
-workspace/models/engines
-workspace/build
-workspace/install
-workspace/log
+workspace/models/
+workspace/isaac_ros_assets/
+workspace/build/
+workspace/install/
+workspace/log/

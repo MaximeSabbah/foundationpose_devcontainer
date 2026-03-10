@@ -1,1 +1,15 @@
+# Modèles et engines TensorRT (binaires lourds, générés en local)
+workspace/models/
 workspace/isaac_ros_assets/models/
+
+# Assets quickstart (téléchargés en local)
+workspace/isaac_ros_assets/isaac_ros_foundationpose/quickstart.bag/
+workspace/isaac_ros_assets/isaac_ros_foundationpose/Mustard/
+workspace/isaac_ros_assets/isaac_ros_foundationpose/dock/
+workspace/isaac_ros_assets/isaac_ros_foundationpose/Mac_and_cheese_0_1/
+workspace/isaac_ros_assets/isaac_ros_foundationpose/soup_can/
+
+# Artifacts colcon
+workspace/build/
+workspace/install/
+workspace/log/

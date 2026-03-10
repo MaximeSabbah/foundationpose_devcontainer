@@ -4,7 +4,7 @@ set -e
 WS=${ISAAC_ROS_WS:-/workspaces/isaac_ros_ws}
 MODEL_DIR="$WS/models/onnx"
 ENGINE_DIR="$WS/models/engines"
-RTDETR_ONNX_DIR="$WS/models/onnx"
+RTDETR_DIR="$WS/isaac_ros_assets/models/synthetica_detr"
 
 # NGC credentials — set NGC_API_KEY in the environment or pass as argument.
 # Usage: build_engines.sh [NGC_API_KEY]
@@ -13,7 +13,7 @@ NGC_API_KEY="${1:-${NGC_API_KEY:-}}"
 # trtexec — on PATH when installed via 'apt install tensorrt', fallback to NGC container path.
 TRTEXEC=$(command -v trtexec 2>/dev/null || echo /usr/src/tensorrt/bin/trtexec)
 
-mkdir -p "$ENGINE_DIR" "$MODEL_DIR"
+mkdir -p "$ENGINE_DIR" "$MODEL_DIR" "$RTDETR_DIR"
 
 # ---------------------------------------------------------------------------
 # Helper: download a file from NGC if it does not already exist locally.
@@ -51,7 +51,7 @@ ngc_download "$MODEL_DIR/score_model.onnx" \
 # ---------------------------------------------------------------------------
 # 2. RT-DETR (SyntheticaDETR) ONNX model
 # ---------------------------------------------------------------------------
-ngc_download "$RTDETR_ONNX_DIR/sdetr_grasp.onnx" \
+ngc_download "$RTDETR_DIR/sdetr_grasp.onnx" \
     "https://api.ngc.nvidia.com/v2/models/nvidia/isaac/synthetica_detr/versions/1.0.0_onnx/files/sdetr_grasp.onnx"
 
 # ---------------------------------------------------------------------------
@@ -90,11 +90,11 @@ fi
 
 # RT-DETR — sdetr_grasp
 # Dynamic shapes taken from the Isaac ROS RT-DETR documentation.
-if [[ ! -f "$ENGINE_DIR/sdetr_grasp.plan" ]]; then
+if [[ ! -f "$RTDETR_DIR/sdetr_grasp.plan" ]]; then
     echo "[3/3] Building sdetr_grasp.plan..."
     "$TRTEXEC" \
-        --onnx="$RTDETR_ONNX_DIR/sdetr_grasp.onnx" \
-        --saveEngine="$ENGINE_DIR/sdetr_grasp.plan" \
+        --onnx="$RTDETR_DIR/sdetr_grasp.onnx" \
+        --saveEngine="$RTDETR_DIR/sdetr_grasp.plan" \
         --minShapes=images:1x3x640x640 \
         --optShapes=images:1x3x640x640 \
         --maxShapes=images:1x3x640x640 \
@@ -107,4 +107,4 @@ echo ""
 echo "Done. Engines written to:"
 echo "  $ENGINE_DIR/refine.plan"
 echo "  $ENGINE_DIR/score.plan"
-echo "  $ENGINE_DIR/sdetr_grasp.plan"
+echo "  $RTDETR_DIR/sdetr_grasp.plan"

@@ -54,9 +54,10 @@ RUN apt-get update && apt-get install -y \
     python3-rosdep \
     && rm -rf /var/lib/apt/lists/*
 
-# Isaac ROS 4.2 FoundationPose (Isaac ROS apt repo already in base image)
+# Isaac ROS 4.2 FoundationPose + RViz plugin for vision_msgs/Detection3DArray
 RUN apt-get update && apt-get install -y \
     ros-jazzy-isaac-ros-foundationpose \
+    ros-jazzy-vision-msgs-rviz-plugins \
     && rm -rf /var/lib/apt/lists/*
 
 # rosdep is already initialised in the NGC base image; || true prevents failure.

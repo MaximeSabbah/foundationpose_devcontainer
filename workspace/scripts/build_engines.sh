@@ -2,9 +2,9 @@
 set -e
 
 WS=${ISAAC_ROS_WS:-/workspaces/isaac_ros_ws}
-MODEL_DIR="$WS/models"
+MODEL_DIR="$WS/models/onnx"
 ENGINE_DIR="$WS/models/engines"
-RTDETR_ONNX_DIR="$WS/models"
+RTDETR_ONNX_DIR="$WS/models/onnx"
 
 # NGC credentials — set NGC_API_KEY in the environment or pass as argument.
 # Usage: build_engines.sh [NGC_API_KEY]
@@ -13,7 +13,7 @@ NGC_API_KEY="${1:-${NGC_API_KEY:-}}"
 # trtexec — on PATH when installed via 'apt install tensorrt', fallback to NGC container path.
 TRTEXEC=$(command -v trtexec 2>/dev/null || echo /usr/src/tensorrt/bin/trtexec)
 
-mkdir -p "$ENGINE_DIR" "$RTDETR_ONNX_DIR"
+mkdir -p "$ENGINE_DIR" "$MODEL_DIR"
 
 # ---------------------------------------------------------------------------
 # Helper: download a file from NGC if it does not already exist locally.

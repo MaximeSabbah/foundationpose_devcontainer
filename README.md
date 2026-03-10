@@ -1,0 +1,1 @@
+Once inside the docker follow here : https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_pose_estimation/isaac_ros_foundationpose/index.html#quickstart

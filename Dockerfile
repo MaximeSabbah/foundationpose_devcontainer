@@ -85,11 +85,6 @@ RUN git clone https://github.com/IntelRealSense/librealsense.git && \
 WORKDIR /workspaces/isaac_ros_ws
 RUN mkdir -p src
 
-# build_engines.sh lives in workspace/scripts/ (volume-mounted at runtime).
-# We create a wrapper in PATH that delegates to the mounted location.
-RUN printf '#!/bin/bash\nexec /workspaces/isaac_ros_ws/scripts/build_engines.sh "$@"\n' \
-    > /usr/local/bin/build_engines.sh && chmod +x /usr/local/bin/build_engines.sh
-
 # Source ROS in interactive shells; workspace overlay is conditional because
 # it may not exist yet on first container start.
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc && \

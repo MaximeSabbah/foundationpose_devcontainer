@@ -10,7 +10,7 @@
   // Runs once inside the container after it is first created.
   // Clones realsense-ros (if absent), installs ROS deps, then builds the workspace.
   // realsense-ros 4.54+ adds ROS 2 Jazzy support. Adjust the branch as needed.
-  "postCreateCommand": "bash -c 'cd /workspaces/isaac_ros_ws && source /opt/ros/jazzy/setup.bash && rosdep install --from-paths src --ignore-src -r -y && colcon build --symlink-install'",
+  "postCreateCommand": "bash -c 'apt-get update && cd /workspaces/isaac_ros_ws && source /opt/ros/jazzy/setup.bash && rosdep install --from-paths src --ignore-src -r -y --skip-keys \"librealsense2 librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg\" && colcon build --symlink-install'",
 
   "remoteEnv": {
     "ROS_DOMAIN_ID": "29"

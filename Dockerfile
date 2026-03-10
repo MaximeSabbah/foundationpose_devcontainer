@@ -87,7 +87,7 @@ RUN mkdir -p src
 
 # build_engines.sh lives in workspace/scripts/ (volume-mounted at runtime).
 # We create a wrapper in PATH that delegates to the mounted location.
-RUN echo '#!/bin/bash\nexec /workspaces/isaac_ros_ws/scripts/build_engines.sh "$@"' \
+RUN printf '#!/bin/bash\nexec /workspaces/isaac_ros_ws/scripts/build_engines.sh "$@"\n' \
     > /usr/local/bin/build_engines.sh && chmod +x /usr/local/bin/build_engines.sh
 
 # Source ROS in interactive shells; workspace overlay is conditional because

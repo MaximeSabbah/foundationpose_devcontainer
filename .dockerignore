@@ -1,0 +1,7 @@
+.git
+.gitignore
+models/
+workspace/models/engines
+workspace/build
+workspace/install
+workspace/log

@@ -1,0 +1,30 @@
+services:
+
+  foundationpose:
+
+    build: .
+
+    runtime: nvidia
+
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - DISPLAY=${DISPLAY}
+
+    network_mode: host
+    ipc: host
+    privileged: true
+
+    # c 81:* = V4L/UVC cameras (major 81)
+    # c 189:* = USB devices (major 189), includes RealSense
+    device_cgroup_rules:
+      - "c 81:* rmw"
+      - "c 189:* rmw"
+
+    volumes:
+      - ./workspace:/workspaces/isaac_ros_ws
+      - /dev:/dev
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+    stdin_open: true
+    tty: true
